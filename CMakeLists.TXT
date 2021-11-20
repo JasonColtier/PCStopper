@@ -22,10 +22,11 @@ set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 
 set(HEADERS
-    # ${HEADER_DIR}/IState.h
+    ${HEADER_DIR}/PCS_Window.h
 )
 
 set(SOURCES
+    ${SOURCE_DIR}/PCS_Window.cpp
     ${SOURCE_DIR}/main.cpp
 )
 
