@@ -2,12 +2,15 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+// #include "JCO_Tools/JcoPrint.h"
 
 class QDial;
 class QLabel;
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+
+#include "JCO_Tools/JcoPrint.h"
 
 class MainWindow : public QMainWindow
 {

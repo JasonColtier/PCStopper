@@ -1,7 +1,8 @@
-#include "mainwindow.h"
-#include "./ui_mainwindow.h"
+#include "includes/mainwindow.h"
+#include "../views/ui_mainwindow.h"
 #include <QDial>
 #include <QLabel>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -35,6 +36,7 @@ void MainWindow::OnDialValueChanged(int value)
         value = 6;
     
     QString text = QString::number(value);
+    LOG_COLOR(LogType::LOG,"Dial value changed to "<<text.toStdString());
     labelDialValue->setText(text);
 }
 
