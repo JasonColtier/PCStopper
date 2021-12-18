@@ -20,7 +20,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void OnDialValueChanged(int value);
+    int OnDialValueChanged(int value) const;
 
 private:
     Ui::MainWindow* ui;

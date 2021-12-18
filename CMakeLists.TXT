@@ -18,9 +18,11 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 set(PROJECT_SOURCES
     sources/main.cpp
     sources/mainwindow.cpp
+    sources/TimeHelpers.cpp
 )
 set(PROJECT_INCLUDES
     includes/mainwindow.h
+    includes/TimeHelpers.h
 )
 set(PROJECT_VIEWS
     views/mainwindow.ui

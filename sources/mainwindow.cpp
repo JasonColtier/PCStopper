@@ -3,20 +3,29 @@
 #include <QDial>
 #include <QLabel>
 
+#include "includes/TimeHelpers.h"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    
+
+
+    //Get UI elements
     dial = ui->centralwidget->findChild<QDial*>("dial");
     Q_ASSERT(dial);
-
     labelDialValue = ui->centralwidget->findChild<QLabel*>("labelDialValue");
     Q_ASSERT(labelDialValue);
 
+    //Connect signals
     connect(dial, &QDial::valueChanged, this, &MainWindow::OnDialValueChanged);
+
+    //Init values
+    labelDialValue->setText(QString::number(OnDialValueChanged(dial->value())));
+
+    std::cout<<"time value "<<TimeHelpers::getCurrentTime();
 }
 
 MainWindow::~MainWindow()
@@ -24,7 +33,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::OnDialValueChanged(int value)
+int MainWindow::OnDialValueChanged(int value) const
 {
 
     if(value>6)
@@ -38,5 +47,6 @@ void MainWindow::OnDialValueChanged(int value)
     QString text = QString::number(value);
     LOG_COLOR(LogType::LOG,"Dial value changed to "<<text.toStdString());
     labelDialValue->setText(text);
+    return value;
 }
 
