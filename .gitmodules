@@ -1,0 +1,3 @@
+[submodule "JCO_Tools"]
+	path = JCO_Tools
+	url = https://github.com/JasonColtier/JCO_Tools
