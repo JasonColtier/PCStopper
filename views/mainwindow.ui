@@ -110,7 +110,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="am_pm_button">
         <property name="text">
          <string>AM</string>
         </property>

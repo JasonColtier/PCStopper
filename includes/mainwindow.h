@@ -2,10 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-// #include "JCO_Tools/JcoPrint.h"
 
+class QPushButton;
 class QDial;
 class QLabel;
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -21,10 +22,15 @@ public:
     ~MainWindow();
 
     int OnDialValueChanged(int value) const;
+    void OnAMPMButtonClicked() const;
 
 private:
     Ui::MainWindow* ui;
     QDial* dial;
     QLabel* labelDialValue;
+    QPushButton* am_pm_button;
+
+    void SetupDialWithTime();
+    void SetupAMPMButton();
 };
 #endif // MAINWINDOW_H
