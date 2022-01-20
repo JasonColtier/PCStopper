@@ -12,6 +12,7 @@ namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
 #include "JCO_Tools/JcoPrint.h"
+#include "TimeHelpers.h"
 
 class MainWindow : public QMainWindow
 {
@@ -21,14 +22,18 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    int OnDialValueChanged(int value) const;
-    void OnAMPMButtonClicked() const;
+    void OnDialValueChanged(int value);
+    void OnAMPMButtonClicked();
+    void OnStartTimerButtonClicked() const;
 
 private:
     Ui::MainWindow* ui;
     QDial* dial;
     QLabel* labelDialValue;
-    QPushButton* am_pm_button;
+    QPushButton* amPmButton;
+    QPushButton* startTimerButton;
+    AM_PM selectedTimeFrame;
+    int targetHour;
 
     void SetupDialWithTime();
     void SetupAMPMButton();

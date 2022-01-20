@@ -1,16 +1,15 @@
 #include "includes/mainwindow.h"
 #include "../views/ui_mainwindow.h"
+#include "includes/shutdownhandler.h"
 #include <QDial>
-#include <QLabel>
 #include <QPushButton>
+
 
 #include "includes/TimeHelpers.h"
 
 
-MainWindow::MainWindow(QWidget* parent)
-    : QMainWindow(parent)
-      , ui(new Ui::MainWindow)
-{
+MainWindow::MainWindow(QWidget *parent)
+        : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
 
@@ -19,23 +18,25 @@ MainWindow::MainWindow(QWidget* parent)
     Q_ASSERT(dial);
     labelDialValue = ui->labelDialValue;
     Q_ASSERT(labelDialValue);
-    am_pm_button = ui->am_pm_button;
+    amPmButton = ui->am_pm_button;
+    Q_ASSERT(amPmButton);
+    startTimerButton = ui->startTimerButton;
+    Q_ASSERT(startTimerButton);
 
     //Connect signals
     connect(dial, &QDial::valueChanged, this, &MainWindow::OnDialValueChanged);
-    connect(am_pm_button, &QPushButton::clicked, this, &MainWindow::OnAMPMButtonClicked);
+    connect(amPmButton, &QPushButton::clicked, this, &MainWindow::OnAMPMButtonClicked);
+    connect(startTimerButton, &QPushButton::clicked, this, &MainWindow::OnStartTimerButtonClicked);
 
     SetupDialWithTime();
     SetupAMPMButton();
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
 }
 
-int MainWindow::OnDialValueChanged(int value) const
-{
+void MainWindow::OnDialValueChanged(int value) {
     if (value > 6)
         value = value % 6;
     else
@@ -45,30 +46,46 @@ int MainWindow::OnDialValueChanged(int value) const
         value = 6;
 
     QString text = QString::number(value);
-    LOG_COLOR(LogType::LOG, "Dial value changed to "<<text.toStdString());
+    LOG_COLOR(LogType::LOG, "Dial value changed to " << text.toStdString());
     labelDialValue->setText(text);
-    return value;
+    targetHour = value;
 }
 
-void MainWindow::OnAMPMButtonClicked() const
-{
-    LOG("AM PM Button clicked ! ");
+void MainWindow::OnAMPMButtonClicked() {
+    if (selectedTimeFrame == AM) {
+        amPmButton->setText("PM");
+        selectedTimeFrame = PM;
+        LOG("AM PM BUtton Blicked ! selected time is : PM");
+
+    } else {
+        amPmButton->setText("AM");
+        selectedTimeFrame = AM;
+        LOG("AM PM BUtton Blicked ! selected time is : AM");
+    }
+
 
 }
 
-void MainWindow::SetupDialWithTime()
-{
-    LOG("dial value set to "<<TimeHelpers::getCurrentHour()); 
+void MainWindow::OnStartTimerButtonClicked() const {
+    LOG("Button clicked !");
+
+    ShutdownHandler::StopPCAtTime(targetHour+(12*selectedTimeFrame));
+}
+
+void MainWindow::SetupDialWithTime() {
+    LOG("dial value set to " << TimeHelpers::getCurrentHour());
 
     //le dial prend la valeur de l'heure actuelle
-    dial->setValue(TimeHelpers::getCurrentHour()+6);
+    dial->setValue(TimeHelpers::getCurrentHour() + 6);
 }
 
-void MainWindow::SetupAMPMButton()
-{
+void MainWindow::SetupAMPMButton() {
     LOG("seting up AM / PM button");
-    if(TimeHelpers::getCurrentTimeFrame() == AM)
-        am_pm_button->setText("AM");
-    else
-        am_pm_button->setText("PM");
+    if (TimeHelpers::getCurrentTimeFrame() == AM) {
+        amPmButton->setText("AM");
+        selectedTimeFrame = AM;
+    } else{
+        amPmButton->setText("PM");
+        selectedTimeFrame = PM;
+    }
 }

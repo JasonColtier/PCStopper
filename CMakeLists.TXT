@@ -10,7 +10,7 @@ set(CMAKE_AUTORCC ON)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_PREFIX_PATH J:/qt2/6.2.2/msvc2019_64)
+set(CMAKE_PREFIX_PATH J:/qt2/6.2.2/msvc2019_64/lib/cmake)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
@@ -19,10 +19,12 @@ set(PROJECT_SOURCES
     sources/main.cpp
     sources/mainwindow.cpp
     sources/TimeHelpers.cpp
+    sources/shutdownhandler.cpp
 )
 set(PROJECT_INCLUDES
     includes/mainwindow.h
     includes/TimeHelpers.h
+    includes/shutdownhandler.h
 )
 set(PROJECT_VIEWS
     views/mainwindow.ui

@@ -5,11 +5,12 @@
 
 int main(int argc, char *argv[])
 {
+    LOG_COLOR(LogType::SUCCESS,"Start Main Application");
+
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
 
-    LOG("Start Main Application");
-    
+
     return a.exec();
 }
