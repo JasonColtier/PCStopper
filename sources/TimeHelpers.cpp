@@ -16,7 +16,7 @@ int TimeHelpers::getCurrentHour()
 {
     std::time_t t = std::time(0);   // get time now
     std::tm* now = std::localtime(&t);
-    return now->tm_hour;
+    return now->tm_hour;//returning a value and not a pointer
 }
 
 AM_PM TimeHelpers::getCurrentTimeFrame()

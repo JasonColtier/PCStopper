@@ -8,7 +8,7 @@ void ShutdownHandler::StopPCAtTime(int targetHour)
 
     //https://www.ionos.fr/digitalguide/serveur/configuration/commandes-shutdown-par-cmd/
     //shutdown /f /t sec
-//    system("shutdown /s /t 1000");
+    system("shutdown /s /t 10");
 
 
 //todo : handle next day
