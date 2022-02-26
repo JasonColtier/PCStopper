@@ -35,6 +35,7 @@ private:
     Ui::MainWindow* ui;
     QLabel* labelDialValue;
     QLabel* countDownLabel;
+    QLabel* versionLabel;
     QPushButton* startTimerButton;
     QDateTimeEdit* dateTimeEdit;
     QRadioButton* stopAtTimeRadio;
@@ -44,5 +45,6 @@ private:
     QTime shutdownTargetTime;
     bool timerActive = false;
 
+    const QString VERSION = "1.0.0";
 };
 #endif // MAINWINDOW_H

@@ -11,44 +11,47 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_PREFIX_PATH J:/qt2/6.2.2/msvc2019_64/lib/cmake)
+set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_CURRENT_SOURCE_DIR}/images/appicon.rc")
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
 set(PROJECT_SOURCES
-    sources/main.cpp
-    sources/mainwindow.cpp
-    sources/TimeHelpers.cpp
-    sources/shutdownhandler.cpp
-)
+        sources/main.cpp
+        sources/mainwindow.cpp
+        sources/TimeHelpers.cpp
+        sources/shutdownhandler.cpp
+        )
 set(PROJECT_INCLUDES
-    includes/mainwindow.h
-    includes/TimeHelpers.h
-    includes/shutdownhandler.h
-)
+        includes/mainwindow.h
+        includes/TimeHelpers.h
+        includes/shutdownhandler.h
+        )
 set(PROJECT_VIEWS
-    views/mainwindow.ui
-)
+        views/mainwindow.ui
+        )
 set(PROJECT_TOOLS
-    JCO_Tools/JcoPrint.h
-)
+        JCO_Tools/JcoPrint.h
+        )
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}"
-PREFIX "HEADERS"
-FILES ${HEADERS})
+        PREFIX "HEADERS"
+        FILES ${HEADERS})
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+if (${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(PCStopper
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-        ${PROJECT_INCLUDES}
-        ${PROJECT_VIEWS}
-        ${PROJECT_TOOLS}
-    )
-endif()
+            MANUAL_FINALIZATION
+            ${PROJECT_SOURCES}
+            ${PROJECT_INCLUDES}
+            ${PROJECT_VIEWS}
+            ${PROJECT_TOOLS}
+            ${APP_ICON_RESOURCE_WINDOWS}
+            )
+endif ()
 
 target_link_libraries(PCStopper PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+set_target_properties(PCStopper PROPERTIES WIN32_EXECUTABLE TRUE)
 
-if(QT_VERSION_MAJOR EQUAL 6)
+if (QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(PCStopper)
-endif()
+endif ()

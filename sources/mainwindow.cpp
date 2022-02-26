@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     stopAtTimeRadio = ui->stopAtTimeRadio;
     stopInTimeRadio = ui->stopInTimeRadio;
     countDownLabel = ui->countDown;
+    versionLabel = ui->versionLabel;
 
     Q_ASSERT(startTimerButton);
     Q_ASSERT(labelDialValue);
@@ -38,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MainWindow::TimerCountdown);
 
+    versionLabel->setText("version "+VERSION);
 }
 
 MainWindow::~MainWindow() {
