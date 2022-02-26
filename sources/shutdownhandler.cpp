@@ -1,18 +1,23 @@
 #include "../includes/shutdownhandler.h"
 #include "../includes/TimeHelpers.h"
+#include <QTime>
 #include "JCO_Tools/JcoPrint.h"
 
-void ShutdownHandler::StopPCAtTime(int targetHour)
-{
-    LOG("stopping pc at "<<targetHour);
+
+void ShutdownHandler::StopPCAtTime(const QTime targetTime) {
+    LOG("shutting down to stop at "<<targetTime.toString().toUtf8().constData());
+
+    int secondsLeft = QTime::currentTime().secsTo(targetTime);
+
+    LOG("shutting down in "<<secondsLeft<<" seconds !");
 
     //https://www.ionos.fr/digitalguide/serveur/configuration/commandes-shutdown-par-cmd/
-    //shutdown /f /t sec
-    system("shutdown /s /t 10");
 
+    string shutdownString = "shutdown /s /t "+std::to_string(secondsLeft);
+    system(shutdownString.c_str());
 
-//todo : handle next day
-    LOG("shutting down in "<<targetHour-TimeHelpers::getCurrentHour()<<" h");
 }
 
-
+void ShutdownHandler::AbortStop() {
+    system("shutdown /a");
+}

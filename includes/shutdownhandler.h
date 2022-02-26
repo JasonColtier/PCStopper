@@ -2,14 +2,18 @@
 #define SHUTDOWNHANDLER_H
 
 
-class ShutdownHandler
-{
+class QTime;
+
+
+class ShutdownHandler {
 public :
-    static void StopPCAtTime(int targetHour);
+    static void StopPCAtTime(QTime targetTime);
+    static void AbortStop();
 
 private:
 
     ShutdownHandler() = default;
+
 };
 
 #endif // SHUTDOWNHANDLER_H

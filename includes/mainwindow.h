@@ -4,8 +4,9 @@
 #include <QMainWindow>
 
 class QPushButton;
-class QDial;
 class QLabel;
+class QDateTimeEdit;
+class QRadioButton;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -13,6 +14,7 @@ QT_END_NAMESPACE
 
 #include "JCO_Tools/JcoPrint.h"
 #include "TimeHelpers.h"
+#include <QTime>
 
 class MainWindow : public QMainWindow
 {
@@ -22,20 +24,25 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void OnDialValueChanged(int value);
-    void OnAMPMButtonClicked();
-    void OnStartTimerButtonClicked() const;
+    void OnStartTimerButtonClicked();
+//    void OnDateTimeChanged(const QDateTime& dateTime);
+//    void OnStopAtTimeRadioButtonClicked(bool clicked);
+//    void OnStopInTimeRadioButtonClicked(bool clicked);
+
+    void TimerCountdown();
 
 private:
     Ui::MainWindow* ui;
-    QDial* dial;
     QLabel* labelDialValue;
-    QPushButton* amPmButton;
+    QLabel* countDownLabel;
     QPushButton* startTimerButton;
-    AM_PM selectedTimeFrame;
-    int targetHour;
+    QDateTimeEdit* dateTimeEdit;
+    QRadioButton* stopAtTimeRadio;
+    QRadioButton* stopInTimeRadio;
 
-    void SetupDialWithTime();
-    void SetupAMPMButton();
+    QTimer* timer;
+    QTime shutdownTargetTime;
+    bool timerActive = false;
+
 };
 #endif // MAINWINDOW_H
