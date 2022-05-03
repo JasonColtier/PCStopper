@@ -45,6 +45,6 @@ private:
     QTime shutdownTargetTime;
     bool timerActive = false;
 
-    const QString VERSION = "1.0.0";
+    const QString VERSION = "1.0.1";
 };
 #endif // MAINWINDOW_H
